@@ -1,1 +1,19 @@
-<p>list works!</p>
+<div style="display:flex; flex-direction: row; align-items: flex-start;">
+  <div>
+    <h1>Movie List</h1>
+      <p>Click on a movie title to view details.</p>
+
+
+    <!-- TODO: change to list item component -->
+    <div *ngFor="let movie of movies$ | async">
+      <div class="movie">
+        <h2>{{ movie.title }}</h2>
+        <p>{{ movie.overview }}</p>
+      </div>
+      <a [routerLink]="[movie.id]">View Details</a>
+    </div>
+  </div>
+
+  <router-outlet />
+</div>
+

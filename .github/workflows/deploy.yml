@@ -3,7 +3,7 @@ name: Build Angular App
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:

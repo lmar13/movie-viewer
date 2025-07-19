@@ -1,5 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -12,7 +13,7 @@ import { selectCurrentPage } from '../../store/movies.selectors';
 
 @Component({
   selector: 'app-list',
-  imports: [NgIf, AsyncPipe, RouterOutlet, RouterLink, MatTableModule],
+  imports: [NgIf, AsyncPipe, RouterOutlet, RouterLink, MatTableModule, MatPaginatorModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
@@ -23,7 +24,8 @@ export class ListComponent {
   displayedColumns = ['index', 'title'];
   currentPage$ = this.store.select(selectCurrentPage);
 
-  private readonly MAX_PAGE = 10;
+  readonly MAX_PAGE = 10;
+  readonly PAGE_SIZE = 20;
 
   constructor() {
     this.movies$ = this.listApi.getMovies();
@@ -33,15 +35,8 @@ export class ListComponent {
     this.store.dispatch(getMovieById({ id }));
   }
 
-  nextPage(page: number) {
-    const nPage = Math.min(page + 1, this.MAX_PAGE);
-    this.store.dispatch(setCurrentPage({ page: nPage }));
-    this.movies$ = this.listApi.getMovies(nPage);
-  }
-
-  prevPage(page: number) {
-    const pPage = Math.max(page - 1, 1);
-    this.store.dispatch(setCurrentPage({ page: pPage }));
-    this.movies$ = this.listApi.getMovies(pPage);
+  handlePageEvent(e: PageEvent) {
+    this.store.dispatch(setCurrentPage({ page: e.pageIndex + 1 }));
+    this.movies$ = this.listApi.getMovies(e.pageIndex + 1);
   }
 }

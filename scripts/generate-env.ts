@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // scripts/generate-env.ts
-import * as fs from 'fs';
-import * as path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 const template = fs.readFileSync(path.resolve(__dirname, '../src/environments/environment.template.ts'), 'utf8');
 const apiKey = process.env['API_KEY'] || '';

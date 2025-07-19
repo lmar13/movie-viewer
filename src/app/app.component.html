@@ -227,12 +227,6 @@
       </svg>
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
-      <div *ngFor="let movie of movies$ | async">
-        <div class="movie">
-          <h2>{{ movie.title }}</h2>
-          <p>{{ movie.overview }}</p>
-        </div>
-      </div>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">

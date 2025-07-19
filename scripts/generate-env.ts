@@ -13,5 +13,10 @@ export const environment = {
 };
 `;
 
-fs.writeFileSync(path.resolve(__dirname, '../src/environments/environment.ts'), output);
+const outputDir = path.resolve(__dirname, '../src/environments');
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
+
+fs.writeFileSync(path.resolve(outputDir, 'environment.ts'), output);
 console.log('✅ environment.ts generated');

@@ -1,7 +1,4 @@
 # TODO LIST
-
-- Unit tests for at least one reducer and one component
-- Loading and error handling for API calls
 - A clear README file with build, run, and test instructions
 - try to deploy app (Heroku?)
 

@@ -1,10 +1,8 @@
 # TODO LIST
 
-- extract some code to separate components
 - Unit tests for at least one reducer and one component
 - Loading and error handling for API calls
 - A clear README file with build, run, and test instructions
-- Visual enhancements
 - try to deploy app (Heroku?)
 
 

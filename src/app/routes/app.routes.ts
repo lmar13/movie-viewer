@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { DetailsComponent } from '../components/details/details.component';
-import { ListComponent } from '../pages/list/list.component';
+import { ListContainerComponent } from '../pages/list/list-container.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/list', pathMatch: 'full' },
-  { path: 'list', component: ListComponent, children: [{ path: ':movieId', component: DetailsComponent }] },
+  { path: 'list', component: ListContainerComponent, children: [{ path: ':movieId', component: DetailsComponent }] },
 ];

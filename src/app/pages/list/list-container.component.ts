@@ -13,10 +13,10 @@ import { selectCurrentPage, selectMovies } from '../../store/movies.selectors';
 @Component({
   selector: 'app-list',
   imports: [NgIf, AsyncPipe, RouterOutlet, RouterLink, MatTableModule, MatPaginatorModule],
-  templateUrl: './list.component.html',
-  styleUrl: './list.component.scss',
+  templateUrl: './list-container.component.html',
+  styleUrl: './list-container.component.scss',
 })
-export class ListComponent implements OnInit {
+export class ListContainerComponent implements OnInit {
   listApi = inject(ListApiService);
   store = inject(Store<MoviesState>);
   displayedColumns = ['index', 'title'];

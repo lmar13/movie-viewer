@@ -2,6 +2,7 @@ import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angul
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -18,5 +19,6 @@ export const appConfig: ApplicationConfig = {
     provideEffects([MoviesEffects]),
     provideHttpClient(withInterceptors([httpInterceptor])),
     ...(isDevMode() ? [provideStoreDevtools()] : []),
+    provideAnimations(),
   ],
 };

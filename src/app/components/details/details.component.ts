@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { Movie } from '../../models/movie.model';
+import { fadeSlideIn } from '../../shared/animations';
 import { MoviesState } from '../../store/movie.state';
 import { selectMovieById } from './../../store/movies.selectors';
 
@@ -12,6 +13,7 @@ import { selectMovieById } from './../../store/movies.selectors';
   imports: [MatCardModule, AsyncPipe, NgIf],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
+  animations: [fadeSlideIn],
 })
 export class DetailsComponent {
   store = inject(Store<MoviesState>);

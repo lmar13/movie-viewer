@@ -1,5 +1,5 @@
 <ng-container *ngIf="movie$ | async as movie">
-  <mat-card class="example-card" appearance="outlined">
+  <mat-card class="example-card" appearance="outlined" @fadeSlideIn>
     <mat-card-header>
       <mat-card-title>{{ movie.title }}</mat-card-title>
     </mat-card-header>

@@ -9,7 +9,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { httpInterceptor } from './core/auth/http.interceptor';
 import { routes } from './routes/app.routes';
 import { MoviesEffects } from './store/movies.effects';
-import { moviesReducer } from './store/movies.reducers';
+import { moviesReducer } from './store/movies.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [

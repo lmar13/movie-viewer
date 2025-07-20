@@ -2,10 +2,10 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { Movie } from '../../models/movie.model';
-import { MoviesState } from '../../store/movies.reducers';
-import { selectMovieById } from '../../store/movies.selectors';
+import { MoviesState } from '../../store/movie.state';
+import { selectMovieById } from './../../store/movies.selectors';
 
 @Component({
   selector: 'app-details',
@@ -15,10 +15,11 @@ import { selectMovieById } from '../../store/movies.selectors';
 })
 export class DetailsComponent {
   store = inject(Store<MoviesState>);
-  movie$: Observable<Movie> = of({} as Movie);
+  movieId$ = new BehaviorSubject(0);
+  movie$: Observable<Movie> = this.movieId$.pipe(switchMap(id => this.store.select(selectMovieById(id))));
 
   @Input()
   set movieId(movieId: string) {
-    this.movie$ = this.store.select(selectMovieById(movieId));
+    this.movieId$.next(Number(movieId));
   }
 }

@@ -1,15 +1,14 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Movie } from '../../models/movie.model';
+import { switchMap } from 'rxjs';
 import { ListApiService } from '../../services/list-api.service';
-import { getMovieById, setCurrentPage } from '../../store/movies.actions';
-import { MoviesState } from '../../store/movies.reducers';
-import { selectCurrentPage } from '../../store/movies.selectors';
+import { MoviesState } from '../../store/movie.state';
+import { setCurrentPage } from '../../store/movies.actions';
+import { selectCurrentPage, selectMovies } from '../../store/movies.selectors';
 
 @Component({
   selector: 'app-list',
@@ -17,26 +16,21 @@ import { selectCurrentPage } from '../../store/movies.selectors';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
-export class ListComponent {
-  movies$: Observable<Movie[]>;
+export class ListComponent implements OnInit {
   listApi = inject(ListApiService);
   store = inject(Store<MoviesState>);
   displayedColumns = ['index', 'title'];
   currentPage$ = this.store.select(selectCurrentPage);
+  movies$ = this.currentPage$.pipe(switchMap(page => this.store.select(selectMovies(page))));
 
   readonly MAX_PAGE = 10;
   readonly PAGE_SIZE = 20;
 
-  constructor() {
-    this.movies$ = this.listApi.getMovies();
-  }
-
-  getDetails(id: string) {
-    this.store.dispatch(getMovieById({ id }));
+  ngOnInit(): void {
+    this.store.dispatch(setCurrentPage({ page: 1 }));
   }
 
   handlePageEvent(e: PageEvent) {
     this.store.dispatch(setCurrentPage({ page: e.pageIndex + 1 }));
-    this.movies$ = this.listApi.getMovies(e.pageIndex + 1);
   }
 }

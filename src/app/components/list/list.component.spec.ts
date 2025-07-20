@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListItemComponent } from './list-item.component';
+import { ListComponent } from './list.component';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('ListItemComponent', () => {
-  let component: ListItemComponent;
-  let fixture: ComponentFixture<ListItemComponent>;
+  let component: ListComponent;
+  let fixture: ComponentFixture<ListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListItemComponent]
-    })
-    .compileComponents();
+      imports: [ListComponent],
+      providers: [provideAnimations()],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(ListItemComponent);
+    fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

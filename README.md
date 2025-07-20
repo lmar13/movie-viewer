@@ -5,7 +5,6 @@
 ### GitHub
 
 Repository URL: https://github.com/lmar13/movie-viewer-viabill
-[GitHub Actions](https://github.com/lmar13/movie-viewer-viabill/actions) -> you can find there building and testing pipes
 
 ### Hosting
 

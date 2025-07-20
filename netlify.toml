@@ -1,3 +1,6 @@
 [build]
   command = "npm run generate-env && ng build --configuration production"
   publish = "dist/movie-viewer-viabill/browser"
+
+[context.production]
+  command = "npm run test && npm run build"

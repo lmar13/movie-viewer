@@ -8,24 +8,7 @@
       [hidePageSize]="true"
       [pageIndex]="cPage - 1"
       (page)="handlePageEvent($event)"></mat-paginator>
-    <table mat-table [dataSource]="(movies$ | async) || []" class="mat-elevation-z8 demo-table">
-      <!-- Index Column -->
-      <ng-container matColumnDef="index">
-        <th mat-header-cell *matHeaderCellDef>#</th>
-        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 + (cPage - 1) * 20 }}</td>
-      </ng-container>
-
-      <!-- Title Column -->
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Title</th>
-        <td mat-cell *matCellDef="let element" [routerLink]="[element.id]">
-          <span>{{ element.title }}</span>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+    <app-list [movies]="(movies$ | async) || []" [currentPage]="cPage" (rowClick)="goToDetails($event)" />
   </div>
   <div class="right"><router-outlet /></div>
 </div>

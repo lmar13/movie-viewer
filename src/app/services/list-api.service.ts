@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { MovieDto, MovieDtoPage } from '../dto/movie-dto.model';
+import { MovieDtoPage } from '../dto/movie-dto.model';
 import { mapMovieDtoToMovie } from '../mappers/movie.mapper';
 import { Movie } from '../models/movie.model';
 
@@ -22,13 +22,9 @@ export class ListApiService {
       map(response => response.results),
       map(movies => movies.map(movie => mapMovieDtoToMovie(movie))),
       catchError(error => {
-        console.error('Error fetching movies:', error);
+        console.error('Error fetching movies:', error); // this can be send for example to ErrorHandler and than to Sentry
         return of([]);
       })
     );
-  }
-
-  getMovieById(id: string): Observable<Movie> {
-    return this.http.get<MovieDto>(`${this.baseApiUrl}/movie/${id}`).pipe(map(movie => mapMovieDtoToMovie(movie)));
   }
 }

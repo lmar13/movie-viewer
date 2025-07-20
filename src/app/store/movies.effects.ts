@@ -3,29 +3,33 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, mergeMap, of, withLatestFrom } from 'rxjs';
 import { ListApiService } from '../services/list-api.service';
+import { MoviesState } from './movie.state';
 import * as MoviesActions from './movies.actions';
-import { MoviesState } from './movies.reducers';
 
 @Injectable()
 export class MoviesEffects {
   private actions$: Actions = inject(Actions);
-  private apiService: ListApiService = inject(ListApiService);
+  private listApiService: ListApiService = inject(ListApiService);
   private store: Store<{ movies: MoviesState }> = inject(Store<{ movies: MoviesState }>);
 
-  loadMovieFromApiById$ = createEffect(() =>
+  loadMoviesFromApi$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(MoviesActions.loadMovieFromApiById),
-      mergeMap(({ id }) => this.apiService.getMovieById(id).pipe(map(movie => MoviesActions.loadMovieById({ movie }))))
+      ofType(MoviesActions.loadMoviesFromApi),
+      mergeMap(({ page }) =>
+        this.listApiService.getMovies(page).pipe(map(movies => MoviesActions.loadMovies({ movies, page })))
+      )
     )
   );
 
-  getMovieState$ = createEffect(() =>
+  getMoviesState$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(MoviesActions.getMovieById),
+      ofType(MoviesActions.getMoviesPerPage),
       withLatestFrom(this.store),
-      mergeMap(([{ id }, state]) => {
-        const movie = state.movies.savedMovies[id];
-        return movie ? of(MoviesActions.loadMovieById({ movie })) : of(MoviesActions.loadMovieFromApiById({ id }));
+      mergeMap(([{ page }, state]) => {
+        const movies = state.movies.moviesByPage[page];
+        return movies && movies.length > 0
+          ? of(MoviesActions.loadMovies({ page, movies }))
+          : of(MoviesActions.loadMoviesFromApi({ page }));
       })
     )
   );
@@ -34,7 +38,7 @@ export class MoviesEffects {
     this.actions$.pipe(
       ofType(MoviesActions.setCurrentPage),
       withLatestFrom(this.store),
-      mergeMap(() => of(MoviesActions.clearSavedMovies()))
+      mergeMap(([{ page }]) => of(MoviesActions.getMoviesPerPage({ page })))
     )
   );
 }

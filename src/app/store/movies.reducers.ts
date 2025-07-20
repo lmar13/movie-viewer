@@ -1,16 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { Movie } from '../models/movie.model';
+import { initialState } from './movie.state';
 import * as MoviesActions from './movies.actions';
-
-export interface MoviesState {
-  currentPage: number;
-  savedMovies: Record<string, Movie>;
-}
-
-export const initialState: MoviesState = {
-  currentPage: 1,
-  savedMovies: {},
-};
 
 export const moviesReducer = createReducer(
   initialState,
@@ -20,20 +10,15 @@ export const moviesReducer = createReducer(
     currentPage: page,
   })),
 
-  on(MoviesActions.loadMovieFromApiById, state => ({
+  on(MoviesActions.loadMoviesFromApi, state => ({
     ...state,
   })),
 
-  on(MoviesActions.loadMovieById, (state, { movie }) => ({
+  on(MoviesActions.loadMovies, (state, { movies, page }) => ({
     ...state,
-    savedMovies: {
-      ...state.savedMovies,
-      [movie.id]: movie,
+    moviesByPage: {
+      ...state.moviesByPage,
+      [page]: movies,
     },
-  })),
-
-  on(MoviesActions.clearSavedMovies, state => ({
-    ...state,
-    savedMovies: {},
   }))
 );

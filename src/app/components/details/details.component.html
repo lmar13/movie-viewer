@@ -1,11 +1,20 @@
-<ng-container *ngIf="movie$ | async as movie">
+<ng-container *ngIf="movie$ | async as movie; else noMovie">
   <mat-card class="example-card" appearance="outlined" @fadeSlideIn>
     <mat-card-header>
       <mat-card-title>{{ movie.title }}</mat-card-title>
     </mat-card-header>
-    <img mat-card-image [src]="'https://image.tmdb.org/t/p/w185/' + movie.poster_path" alt="Photo of a Shiba Inu" />
+    <img mat-card-image [src]="'https://image.tmdb.org/t/p/w185/' + movie.poster_path" alt="" />
     <mat-card-content>
       <p>{{ movie.overview }}</p>
     </mat-card-content>
   </mat-card>
 </ng-container>
+
+<ng-template #noMovie>
+  <mat-card class="empty-card" appearance="outlined" @fadeSlideIn>
+    <div class="empty-content">
+      <mat-icon color="primary" fontIcon="movie" class="empty-icon"></mat-icon>
+      <h2>Select a movie to see details</h2>
+    </div>
+  </mat-card>
+</ng-template>

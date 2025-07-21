@@ -1,10 +1,10 @@
-# MovieViewerViabill
+# MovieViewer
 
 ## Demo
 
 ### GitHub
 
-Repository URL: https://github.com/lmar13/movie-viewer-viabill
+Repository URL: https://github.com/lmar13/movie-viewer
 
 ### Hosting
 

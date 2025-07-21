@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "movie-viewer-viabill": {
+    "movie-viewer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -19,7 +19,7 @@
           "options": {
             "browser": "src/main.ts",
             "index": "src/index.html",
-            "outputPath": "dist/movie-viewer-viabill",
+            "outputPath": "dist/movie-viewer",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -68,10 +68,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "movie-viewer-viabill:build:production"
+              "buildTarget": "movie-viewer:build:production"
             },
             "development": {
-              "buildTarget": "movie-viewer-viabill:build:development"
+              "buildTarget": "movie-viewer:build:development"
             }
           },
           "defaultConfiguration": "development"

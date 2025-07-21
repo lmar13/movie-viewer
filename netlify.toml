@@ -1,3 +1,3 @@
 [build]
   command = "npm run generate-env && ng build --configuration production"
-  publish = "dist/movie-viewer-viabill/browser"
+  publish = "dist/movie-viewer/browser"

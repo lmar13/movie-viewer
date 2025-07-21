@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideMockStore } from '@ngrx/store/testing';
 import { initialState } from '../../store/movie.state';
 import { DetailsComponent } from './details.component';
@@ -11,7 +12,7 @@ describe('DetailsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [DetailsComponent],
-      providers: [provideMockStore({ initialState })],
+      providers: [provideMockStore({ initialState }), provideAnimations()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DetailsComponent);

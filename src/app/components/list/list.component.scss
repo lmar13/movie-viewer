@@ -1,6 +1,6 @@
 .demo-table {
   width: 100%;
-  max-height: calc(100vh - 120px); // uwzględnia wysokość paginatora
+  max-height: calc(100% - 56px);
   overflow-y: auto;
   display: block;
 }

@@ -25,7 +25,7 @@ npm install
 To start a local version of app, run:
 
 ```bash
-npm serve
+npm run start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`

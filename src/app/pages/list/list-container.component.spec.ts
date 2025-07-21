@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { ListContainerComponent } from './list-container.component';
-import { Router } from '@angular/router';
-import { setCurrentPage } from '../../store/movies.actions';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PageEvent } from '@angular/material/paginator';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Movie } from '../../models/movie.model';
+import { setCurrentPage } from '../../store/movies.actions';
+import { ListContainerComponent } from './list-container.component';
 
 describe('ListContainerComponent', () => {
   let component: ListContainerComponent;
@@ -60,6 +60,10 @@ describe('ListContainerComponent', () => {
     const event: PageEvent = { pageIndex: 2, pageSize: 20, length: 100 };
     component.handlePageEvent(event);
     expect(dispatchSpy).toHaveBeenCalledWith(setCurrentPage({ page: 3 }));
+
+    const secondEvent: PageEvent = { pageIndex: 0, pageSize: 20, length: 100 };
+    component.handlePageEvent(secondEvent);
+    expect(dispatchSpy).toHaveBeenCalledWith(setCurrentPage({ page: 1 }));
   });
 
   it('should navigate to movie details on goToDetails', () => {

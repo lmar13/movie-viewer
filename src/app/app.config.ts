@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideStore({ movies: moviesReducer }),
     provideEffects([MoviesEffects]),
     provideHttpClient(withInterceptors([httpInterceptor])),
-    ...(isDevMode() ? [provideStoreDevtools()] : []),
     provideAnimations(),
+    ...(isDevMode() ? [provideStoreDevtools()] : []),
   ],
 };

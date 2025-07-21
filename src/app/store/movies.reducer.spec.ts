@@ -5,6 +5,7 @@ import { moviesReducer } from './movies.reducer';
 
 describe('moviesReducer', () => {
   it('should return the initial state when an unknown action is passed', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const action = { type: 'UNKNOWN' } as any;
     const state = moviesReducer(undefined, action);
 

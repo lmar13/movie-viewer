@@ -50,7 +50,7 @@ describe('ListApiService', () => {
   });
 
   describe('getMovies', () => {
-    it('should handle multiple movies in response', () => {
+    it('should handle movies in response', () => {
       const multipleMoviesResponse: MovieDtoPage = {
         ...mockMovieDtoPage,
         results: [
@@ -123,7 +123,6 @@ describe('ListApiService', () => {
           const movie = movies[0];
           expect(movie.id).toBe(mockMovieDto.id);
           expect(movie.title).toBe(mockMovieDto.title);
-          // Sprawdź czy mapper został wywołany poprawnie
           expect(movie).toBeDefined();
         },
       });
@@ -134,17 +133,13 @@ describe('ListApiService', () => {
 
     it('should handle malformed response data', () => {
       const malformedResponse = {
-        results: [
-          { ...mockMovieDto, title: null }, // Nieprawidłowe dane
-          mockMovieDto, // Prawidłowe dane
-        ],
+        results: [{ ...mockMovieDto, title: null }, mockMovieDto],
       };
 
       service.getMovies().subscribe({
         next: (movies: Movie[]) => {
           expect(movies).toBeDefined();
           expect(movies.length).toBe(2);
-          // Mapper powinien obsłużyć nieprawidłowe dane
         },
         error: () => fail('Should handle malformed data'),
       });
